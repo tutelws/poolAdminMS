@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d8707dd6564d44a4954ea679db05747b" Name="Diagram1">
+        <EntityTypeShape EntityType="poolDBModel.Abonement" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.CalendarTimeRow" Width="1.5" PointX="10.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.Client" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.DayTimeSet" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.Employee" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.EmployeesPosition" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.ServiceType" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.TrainingGroup" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.VisitDate" Width="1.5" PointX="12.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="poolDBModel.VisitType" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <AssociationConnector Association="poolDBModel.FK_Abonement_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_Abonement_ServiceTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_Abonement_TrainingGroups" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_Abonement_VisitTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_VisitDates_Abonement" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_CalendarTimeRow_DayTimeSet" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups1" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups2" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups3" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups4" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups5" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups6" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_VisitDates_Clients" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_Employees_EmployeesPositions" ManuallyRouted="false" />
+        <AssociationConnector Association="poolDBModel.FK_TrainingGroups_Employees" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

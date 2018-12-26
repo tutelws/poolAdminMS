@@ -26,14 +26,14 @@ namespace poolAdminMS
         }
     
         public virtual DbSet<Abonement> Abonements { get; set; }
-        public virtual DbSet<Client> Clients { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<TrainingGroup> TrainingGroups { get; set; }
-        public virtual DbSet<ServiceType> ServiceTypes { get; set; }
-        public virtual DbSet<VisitType> VisitTypes { get; set; }
-        public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
-        public virtual DbSet<VisitDate> VisitDates { get; set; }
         public virtual DbSet<CalendarTimeRow> CalendarTimeRows { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<DayTimeSet> DayTimeSets { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeesPosition> EmployeesPositions { get; set; }
+        public virtual DbSet<ServiceType> ServiceTypes { get; set; }
+        public virtual DbSet<TrainingGroup> TrainingGroups { get; set; }
+        public virtual DbSet<VisitDate> VisitDates { get; set; }
+        public virtual DbSet<VisitType> VisitTypes { get; set; }
     }
 }

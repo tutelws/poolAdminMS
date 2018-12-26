@@ -21,16 +21,16 @@ namespace poolAdminMS
         }
     
         public int Id { get; set; }
+        public int VisitTypeId { get; set; }
+        public int ServiceTypeId { get; set; }
         public Nullable<int> VisitCount { get; set; }
         public System.DateTime DateEnd { get; set; }
         public int ClientId { get; set; }
         public Nullable<int> TrainingGroupId { get; set; }
-        public int VisitTypeId { get; set; }
-        public int ServiceTypeId { get; set; }
     
         public virtual Client Client { get; set; }
-        public virtual TrainingGroup TrainingGroup { get; set; }
         public virtual ServiceType ServiceType { get; set; }
+        public virtual TrainingGroup TrainingGroup { get; set; }
         public virtual VisitType VisitType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitDate> VisitDates { get; set; }

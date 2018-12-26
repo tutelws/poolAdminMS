@@ -27,8 +27,8 @@ namespace poolAdminMS
         public string Phone { get; set; }
         public Nullable<int> PositionId { get; set; }
     
+        public virtual EmployeesPosition EmployeesPosition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TrainingGroup> TrainingGroups { get; set; }
-        public virtual EmployeesPosition EmployeesPosition { get; set; }
     }
 }

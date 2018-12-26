@@ -12,6 +12,21 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,16 +74,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abonement.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CalendarTimeRow.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Client.cs">
+      <DependentUpon>poolDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DayTimeSet.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>poolDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EmployeesPosition.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Forms\AcceptDialogForm.cs">
       <SubType>Form</SubType>
@@ -97,8 +118,26 @@
     <Compile Include="Interfaces\ICalendarManager.cs" />
     <Compile Include="Interfaces\IClientManager.cs" />
     <Compile Include="Interfaces\ITrainingGroupsManager.cs" />
+    <Compile Include="poolDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>poolDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="poolDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="poolDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>poolDataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ServiceType.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingGroup.cs">
+      <DependentUpon>poolDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserControls\CalendarDayLarge.cs">
       <SubType>UserControl</SubType>
@@ -118,12 +157,6 @@
     <Compile Include="UserControls\calendarMonthControl.Designer.cs">
       <DependentUpon>calendarMonthControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Client.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ClientsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -137,26 +170,8 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SystemClasses\PoolAdminSystem.cs" />
-    <Compile Include="poolModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>poolModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="poolModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>poolModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="poolModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>poolModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrainingGroup.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\TrainingGroupsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -164,10 +179,10 @@
       <DependentUpon>TrainingGroupsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="VisitDate.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="VisitType.cs">
-      <DependentUpon>poolModel.tt</DependentUpon>
+      <DependentUpon>poolDataModel.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Forms\AcceptDialogForm.resx">
       <DependentUpon>AcceptDialogForm.cs</DependentUpon>
@@ -208,13 +223,13 @@
     <EmbeddedResource Include="UserControls\TrainingGroupsControl.resx">
       <DependentUpon>TrainingGroupsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="poolModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>poolModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="packages.config" />
-    <None Include="poolModel.edmx.diagram">
-      <DependentUpon>poolModel.edmx</DependentUpon>
+    <EntityDeploy Include="poolDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>poolDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="poolDataModel.edmx.diagram">
+      <DependentUpon>poolDataModel.edmx</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -230,22 +245,41 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="poolModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>poolModel.edmx</DependentUpon>
-      <LastGenOutput>poolModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="poolModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>poolModel.edmx</DependentUpon>
-      <LastGenOutput>poolModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Structs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="poolDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>poolDataModel.edmx</DependentUpon>
+      <LastGenOutput>poolDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="poolDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>poolDataModel.edmx</DependentUpon>
+      <LastGenOutput>poolDataModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="poolDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="poolDB_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>poolDB.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

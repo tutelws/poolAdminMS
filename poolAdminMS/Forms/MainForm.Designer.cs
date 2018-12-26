@@ -41,7 +41,7 @@
             // 
             this.calendarButton.FlatAppearance.BorderSize = 0;
             this.calendarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.calendarButton.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.calendarButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.calendarButton.ForeColor = System.Drawing.Color.MintCream;
             this.calendarButton.Location = new System.Drawing.Point(3, 0);
             this.calendarButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -63,7 +63,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(176, 711);
+            this.panel1.Size = new System.Drawing.Size(184, 711);
             this.panel1.TabIndex = 2;
             // 
             // slidePanel
@@ -78,7 +78,7 @@
             // 
             this.clientsButton.FlatAppearance.BorderSize = 0;
             this.clientsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.clientsButton.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clientsButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clientsButton.ForeColor = System.Drawing.Color.MintCream;
             this.clientsButton.Location = new System.Drawing.Point(3, 90);
             this.clientsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -94,13 +94,13 @@
             // 
             this.trainingGroupsMenuButton.FlatAppearance.BorderSize = 0;
             this.trainingGroupsMenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.trainingGroupsMenuButton.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.trainingGroupsMenuButton.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.trainingGroupsMenuButton.ForeColor = System.Drawing.Color.MintCream;
             this.trainingGroupsMenuButton.Location = new System.Drawing.Point(3, 180);
             this.trainingGroupsMenuButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.trainingGroupsMenuButton.Name = "trainingGroupsMenuButton";
             this.trainingGroupsMenuButton.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.trainingGroupsMenuButton.Size = new System.Drawing.Size(180, 90);
+            this.trainingGroupsMenuButton.Size = new System.Drawing.Size(188, 90);
             this.trainingGroupsMenuButton.TabIndex = 4;
             this.trainingGroupsMenuButton.Text = "Тренировочные группы";
             this.trainingGroupsMenuButton.UseVisualStyleBackColor = true;
@@ -109,14 +109,14 @@
             // userControlPanel
             // 
             this.userControlPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.userControlPanel.Location = new System.Drawing.Point(176, 0);
+            this.userControlPanel.Location = new System.Drawing.Point(184, 0);
             this.userControlPanel.Name = "userControlPanel";
-            this.userControlPanel.Size = new System.Drawing.Size(1108, 711);
+            this.userControlPanel.Size = new System.Drawing.Size(1100, 711);
             this.userControlPanel.TabIndex = 3;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 711);
             this.Controls.Add(this.userControlPanel);

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="poolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="poolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Abonement">
           <Key>
             <PropertyRef Name="Id" />
@@ -358,7 +358,8 @@
             <End Role="VisitDates" EntitySet="VisitDates" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="poolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -367,17 +368,38 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VisitTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceTypeId" Type="Int32" Nullable="false" />
           <Property Name="VisitCount" Type="Int32" />
           <Property Name="DateEnd" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ClientId" Type="Int32" Nullable="false" />
           <Property Name="TrainingGroupId" Type="Int32" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Abonement_Clients" FromRole="Abonement" ToRole="Clients" />
+          <NavigationProperty Name="ServiceType" Relationship="Self.FK_Abonement_ServiceTypes" FromRole="Abonement" ToRole="ServiceTypes" />
           <NavigationProperty Name="TrainingGroup" Relationship="Self.FK_Abonement_TrainingGroups" FromRole="Abonement" ToRole="TrainingGroups" />
-          <Property Name="VisitTypeId" Type="Int32" Nullable="false" />
-          <Property Name="ServiceTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ServiceType" Relationship="poolDBModel.FK_Abonement_ServiceTypes" FromRole="Abonement" ToRole="ServiceType" />
-          <NavigationProperty Name="VisitType" Relationship="poolDBModel.FK_Abonement_VisitTypes" FromRole="Abonement" ToRole="VisitType" />
-          <NavigationProperty Name="VisitDates" Relationship="poolDBModel.FK_VisitDates_Abonement" FromRole="Abonement" ToRole="VisitDate" />
+          <NavigationProperty Name="VisitType" Relationship="Self.FK_Abonement_VisitTypes" FromRole="Abonement" ToRole="VisitTypes" />
+          <NavigationProperty Name="VisitDates" Relationship="Self.FK_VisitDates_Abonement" FromRole="Abonement" ToRole="VisitDates" />
+        </EntityType>
+        <EntityType Name="CalendarTimeRow">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lane1" Type="Int32" />
+          <Property Name="Lane2" Type="Int32" />
+          <Property Name="Lane3" Type="Int32" />
+          <Property Name="Lane4" Type="Int32" />
+          <Property Name="Lane5" Type="Int32" />
+          <Property Name="Lane6" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="TimeId" Type="Int32" />
+          <NavigationProperty Name="DayTimeSet" Relationship="Self.FK_CalendarTimeRow_DayTimeSet" FromRole="CalendarTimeRow" ToRole="DayTimeSet" />
+          <NavigationProperty Name="TrainingGroup" Relationship="Self.FK_CalendarTimeRow_TrainingGroups1" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
+          <NavigationProperty Name="TrainingGroup1" Relationship="Self.FK_CalendarTimeRow_TrainingGroups2" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
+          <NavigationProperty Name="TrainingGroup2" Relationship="Self.FK_CalendarTimeRow_TrainingGroups3" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
+          <NavigationProperty Name="TrainingGroup3" Relationship="Self.FK_CalendarTimeRow_TrainingGroups4" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
+          <NavigationProperty Name="TrainingGroup4" Relationship="Self.FK_CalendarTimeRow_TrainingGroups5" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
+          <NavigationProperty Name="TrainingGroup5" Relationship="Self.FK_CalendarTimeRow_TrainingGroups6" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -390,7 +412,16 @@
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Gender" Type="Boolean" />
           <NavigationProperty Name="Abonements" Relationship="Self.FK_Abonement_Clients" FromRole="Clients" ToRole="Abonement" />
-          <NavigationProperty Name="VisitDates" Relationship="poolDBModel.FK_VisitDates_Clients" FromRole="Client" ToRole="VisitDate" />
+          <NavigationProperty Name="VisitDates" Relationship="Self.FK_VisitDates_Clients" FromRole="Clients" ToRole="VisitDates" />
+        </EntityType>
+        <EntityType Name="DayTimeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="CalendarTimeRows" Relationship="Self.FK_CalendarTimeRow_DayTimeSet" FromRole="DayTimeSet" ToRole="CalendarTimeRow" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -401,9 +432,25 @@
           <Property Name="Surname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Secondname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TrainingGroups" Relationship="Self.FK_TrainingGroups_Employees" FromRole="Employees" ToRole="TrainingGroups" />
           <Property Name="PositionId" Type="Int32" />
-          <NavigationProperty Name="EmployeesPosition" Relationship="poolDBModel.FK_Employees_EmployeesPositions" FromRole="Employee" ToRole="EmployeesPosition" />
+          <NavigationProperty Name="EmployeesPosition" Relationship="Self.FK_Employees_EmployeesPositions" FromRole="Employees" ToRole="EmployeesPositions" />
+          <NavigationProperty Name="TrainingGroups" Relationship="Self.FK_TrainingGroups_Employees" FromRole="Employees" ToRole="TrainingGroups" />
+        </EntityType>
+        <EntityType Name="EmployeesPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PositionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_EmployeesPositions" FromRole="EmployeesPositions" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="ServiceType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Abonements" Relationship="Self.FK_Abonement_ServiceTypes" FromRole="ServiceTypes" ToRole="Abonement" />
         </EntityType>
         <EntityType Name="TrainingGroup">
           <Key>
@@ -412,15 +459,34 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GroupName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CoachId" Type="Int32" />
-          <NavigationProperty Name="Abonements" Relationship="Self.FK_Abonement_TrainingGroups" FromRole="TrainingGroups" ToRole="Abonement" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_TrainingGroups_Employees" FromRole="TrainingGroups" ToRole="Employees" />
-          <NavigationProperty Name="CalendarTimeRows" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups1" FromRole="TrainingGroup" ToRole="CalendarTimeRow" />
-          <NavigationProperty Name="CalendarTimeRows1" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups2" FromRole="TrainingGroup" ToRole="CalendarTimeRow" />
-          <NavigationProperty Name="CalendarTimeRows2" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups3" FromRole="TrainingGroup" ToRole="CalendarTimeRow" />
-          <NavigationProperty Name="CalendarTimeRows3" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups4" FromRole="TrainingGroup" ToRole="CalendarTimeRow" />
-          <NavigationProperty Name="CalendarTimeRows4" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups5" FromRole="TrainingGroup" ToRole="CalendarTimeRow" />
-          <NavigationProperty Name="CalendarTimeRows5" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups6" FromRole="TrainingGroup" ToRole="CalendarTimeRow" />
           <Property Name="Color" Type="Binary" MaxLength="4" FixedLength="true" />
+          <NavigationProperty Name="Abonements" Relationship="Self.FK_Abonement_TrainingGroups" FromRole="TrainingGroups" ToRole="Abonement" />
+          <NavigationProperty Name="CalendarTimeRows" Relationship="Self.FK_CalendarTimeRow_TrainingGroups1" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
+          <NavigationProperty Name="CalendarTimeRows1" Relationship="Self.FK_CalendarTimeRow_TrainingGroups2" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
+          <NavigationProperty Name="CalendarTimeRows2" Relationship="Self.FK_CalendarTimeRow_TrainingGroups3" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
+          <NavigationProperty Name="CalendarTimeRows3" Relationship="Self.FK_CalendarTimeRow_TrainingGroups4" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
+          <NavigationProperty Name="CalendarTimeRows4" Relationship="Self.FK_CalendarTimeRow_TrainingGroups5" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
+          <NavigationProperty Name="CalendarTimeRows5" Relationship="Self.FK_CalendarTimeRow_TrainingGroups6" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_TrainingGroups_Employees" FromRole="TrainingGroups" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="VisitDate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AbonementId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Abonement" Relationship="Self.FK_VisitDates_Abonement" FromRole="VisitDates" ToRole="Abonement" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_VisitDates_Clients" FromRole="VisitDates" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="VisitType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Abonements" Relationship="Self.FK_Abonement_VisitTypes" FromRole="VisitTypes" ToRole="Abonement" />
         </EntityType>
         <Association Name="FK_Abonement_Clients">
           <End Role="Clients" Type="Self.Client" Multiplicity="1">
@@ -436,6 +502,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Abonement_ServiceTypes">
+          <End Role="ServiceTypes" Type="Self.ServiceType" Multiplicity="1" />
+          <End Role="Abonement" Type="Self.Abonement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ServiceTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Abonement">
+              <PropertyRef Name="ServiceTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Abonement_TrainingGroups">
           <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="0..1" />
           <End Role="Abonement" Type="Self.Abonement" Multiplicity="*" />
@@ -448,8 +526,144 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Abonement_VisitTypes">
+          <End Role="VisitTypes" Type="Self.VisitType" Multiplicity="1" />
+          <End Role="Abonement" Type="Self.Abonement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VisitTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Abonement">
+              <PropertyRef Name="VisitTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitDates_Abonement">
+          <End Role="Abonement" Type="Self.Abonement" Multiplicity="0..1" />
+          <End Role="VisitDates" Type="Self.VisitDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Abonement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitDates">
+              <PropertyRef Name="AbonementId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarTimeRow_DayTimeSet">
+          <End Role="DayTimeSet" Type="Self.DayTimeSet" Multiplicity="0..1" />
+          <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DayTimeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalendarTimeRow">
+              <PropertyRef Name="TimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarTimeRow_TrainingGroups1">
+          <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="0..1" />
+          <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalendarTimeRow">
+              <PropertyRef Name="Lane1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarTimeRow_TrainingGroups2">
+          <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="0..1" />
+          <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalendarTimeRow">
+              <PropertyRef Name="Lane2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarTimeRow_TrainingGroups3">
+          <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="0..1" />
+          <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalendarTimeRow">
+              <PropertyRef Name="Lane3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarTimeRow_TrainingGroups4">
+          <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="0..1" />
+          <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalendarTimeRow">
+              <PropertyRef Name="Lane4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarTimeRow_TrainingGroups5">
+          <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="0..1" />
+          <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalendarTimeRow">
+              <PropertyRef Name="Lane5" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CalendarTimeRow_TrainingGroups6">
+          <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="0..1" />
+          <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TrainingGroups">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CalendarTimeRow">
+              <PropertyRef Name="Lane6" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitDates_Clients">
+          <End Role="Clients" Type="Self.Client" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VisitDates" Type="Self.VisitDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VisitDates">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_EmployeesPositions">
+          <End Role="EmployeesPositions" Type="Self.EmployeesPosition" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeesPositions">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TrainingGroups_Employees">
-          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="TrainingGroups" Type="Self.TrainingGroup" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
@@ -462,287 +676,76 @@
         </Association>
         <EntityContainer Name="poolDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Abonements" EntityType="Self.Abonement" />
+          <EntitySet Name="CalendarTimeRows" EntityType="Self.CalendarTimeRow" />
           <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="DayTimeSets" EntityType="Self.DayTimeSet" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="EmployeesPositions" EntityType="Self.EmployeesPosition" />
+          <EntitySet Name="ServiceTypes" EntityType="Self.ServiceType" />
           <EntitySet Name="TrainingGroups" EntityType="Self.TrainingGroup" />
+          <EntitySet Name="VisitDates" EntityType="Self.VisitDate" />
+          <EntitySet Name="VisitTypes" EntityType="Self.VisitType" />
           <AssociationSet Name="FK_Abonement_Clients" Association="Self.FK_Abonement_Clients">
             <End Role="Clients" EntitySet="Clients" />
+            <End Role="Abonement" EntitySet="Abonements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Abonement_ServiceTypes" Association="Self.FK_Abonement_ServiceTypes">
+            <End Role="ServiceTypes" EntitySet="ServiceTypes" />
             <End Role="Abonement" EntitySet="Abonements" />
           </AssociationSet>
           <AssociationSet Name="FK_Abonement_TrainingGroups" Association="Self.FK_Abonement_TrainingGroups">
             <End Role="TrainingGroups" EntitySet="TrainingGroups" />
             <End Role="Abonement" EntitySet="Abonements" />
           </AssociationSet>
+          <AssociationSet Name="FK_Abonement_VisitTypes" Association="Self.FK_Abonement_VisitTypes">
+            <End Role="VisitTypes" EntitySet="VisitTypes" />
+            <End Role="Abonement" EntitySet="Abonements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitDates_Abonement" Association="Self.FK_VisitDates_Abonement">
+            <End Role="Abonement" EntitySet="Abonements" />
+            <End Role="VisitDates" EntitySet="VisitDates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarTimeRow_DayTimeSet" Association="Self.FK_CalendarTimeRow_DayTimeSet">
+            <End Role="DayTimeSet" EntitySet="DayTimeSets" />
+            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups1" Association="Self.FK_CalendarTimeRow_TrainingGroups1">
+            <End Role="TrainingGroups" EntitySet="TrainingGroups" />
+            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups2" Association="Self.FK_CalendarTimeRow_TrainingGroups2">
+            <End Role="TrainingGroups" EntitySet="TrainingGroups" />
+            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups3" Association="Self.FK_CalendarTimeRow_TrainingGroups3">
+            <End Role="TrainingGroups" EntitySet="TrainingGroups" />
+            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups4" Association="Self.FK_CalendarTimeRow_TrainingGroups4">
+            <End Role="TrainingGroups" EntitySet="TrainingGroups" />
+            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups5" Association="Self.FK_CalendarTimeRow_TrainingGroups5">
+            <End Role="TrainingGroups" EntitySet="TrainingGroups" />
+            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups6" Association="Self.FK_CalendarTimeRow_TrainingGroups6">
+            <End Role="TrainingGroups" EntitySet="TrainingGroups" />
+            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitDates_Clients" Association="Self.FK_VisitDates_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="VisitDates" EntitySet="VisitDates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_EmployeesPositions" Association="Self.FK_Employees_EmployeesPositions">
+            <End Role="EmployeesPositions" EntitySet="EmployeesPositions" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
           <AssociationSet Name="FK_TrainingGroups_Employees" Association="Self.FK_TrainingGroups_Employees">
             <End Role="Employees" EntitySet="Employees" />
             <End Role="TrainingGroups" EntitySet="TrainingGroups" />
           </AssociationSet>
-          <EntitySet Name="ServiceTypes" EntityType="poolDBModel.ServiceType" />
-          <EntitySet Name="VisitTypes" EntityType="poolDBModel.VisitType" />
-          <AssociationSet Name="FK_Abonement_ServiceTypes" Association="poolDBModel.FK_Abonement_ServiceTypes">
-            <End Role="ServiceType" EntitySet="ServiceTypes" />
-            <End Role="Abonement" EntitySet="Abonements" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Abonement_VisitTypes" Association="poolDBModel.FK_Abonement_VisitTypes">
-            <End Role="VisitType" EntitySet="VisitTypes" />
-            <End Role="Abonement" EntitySet="Abonements" />
-          </AssociationSet>
-          <EntitySet Name="EmployeesPositions" EntityType="poolDBModel.EmployeesPosition" />
-          <AssociationSet Name="FK_Employees_EmployeesPositions" Association="poolDBModel.FK_Employees_EmployeesPositions">
-            <End Role="EmployeesPosition" EntitySet="EmployeesPositions" />
-            <End Role="Employee" EntitySet="Employees" />
-          </AssociationSet>
-          <EntitySet Name="VisitDates" EntityType="poolDBModel.VisitDate" />
-          <AssociationSet Name="FK_VisitDates_Abonement" Association="poolDBModel.FK_VisitDates_Abonement">
-            <End Role="Abonement" EntitySet="Abonements" />
-            <End Role="VisitDate" EntitySet="VisitDates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VisitDates_Clients" Association="poolDBModel.FK_VisitDates_Clients">
-            <End Role="Client" EntitySet="Clients" />
-            <End Role="VisitDate" EntitySet="VisitDates" />
-          </AssociationSet>
-          <EntitySet Name="CalendarTimeRows" EntityType="poolDBModel.CalendarTimeRow" />
-          <EntitySet Name="DayTimeSets" EntityType="poolDBModel.DayTimeSet" />
-          <AssociationSet Name="FK_CalendarTimeRow_DayTimeSet" Association="poolDBModel.FK_CalendarTimeRow_DayTimeSet">
-            <End Role="DayTimeSet" EntitySet="DayTimeSets" />
-            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups1" Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups1">
-            <End Role="TrainingGroup" EntitySet="TrainingGroups" />
-            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups2" Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups2">
-            <End Role="TrainingGroup" EntitySet="TrainingGroups" />
-            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups3" Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups3">
-            <End Role="TrainingGroup" EntitySet="TrainingGroups" />
-            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups4" Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups4">
-            <End Role="TrainingGroup" EntitySet="TrainingGroups" />
-            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups5" Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups5">
-            <End Role="TrainingGroup" EntitySet="TrainingGroups" />
-            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CalendarTimeRow_TrainingGroups6" Association="poolDBModel.FK_CalendarTimeRow_TrainingGroups6">
-            <End Role="TrainingGroup" EntitySet="TrainingGroups" />
-            <End Role="CalendarTimeRow" EntitySet="CalendarTimeRows" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ServiceType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Abonements" Relationship="poolDBModel.FK_Abonement_ServiceTypes" FromRole="ServiceType" ToRole="Abonement" />
-        </EntityType>
-        <EntityType Name="VisitType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Abonements" Relationship="poolDBModel.FK_Abonement_VisitTypes" FromRole="VisitType" ToRole="Abonement" />
-        </EntityType>
-        <Association Name="FK_Abonement_ServiceTypes">
-          <End Type="poolDBModel.ServiceType" Role="ServiceType" Multiplicity="1" />
-          <End Type="poolDBModel.Abonement" Role="Abonement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ServiceType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Abonement">
-              <PropertyRef Name="ServiceTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Abonement_VisitTypes">
-          <End Type="poolDBModel.VisitType" Role="VisitType" Multiplicity="1" />
-          <End Type="poolDBModel.Abonement" Role="Abonement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VisitType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Abonement">
-              <PropertyRef Name="VisitTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="EmployeesPosition">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PositionName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employees" Relationship="poolDBModel.FK_Employees_EmployeesPositions" FromRole="EmployeesPosition" ToRole="Employee" />
-        </EntityType>
-        <Association Name="FK_Employees_EmployeesPositions">
-          <End Type="poolDBModel.EmployeesPosition" Role="EmployeesPosition" Multiplicity="0..1" />
-          <End Type="poolDBModel.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeesPosition">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="PositionId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="VisitDate">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="AbonementId" Type="Int32" />
-          <Property Name="ClientId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Abonement" Relationship="poolDBModel.FK_VisitDates_Abonement" FromRole="VisitDate" ToRole="Abonement" />
-          <NavigationProperty Name="Client" Relationship="poolDBModel.FK_VisitDates_Clients" FromRole="VisitDate" ToRole="Client" />
-        </EntityType>
-        <Association Name="FK_VisitDates_Abonement">
-          <End Type="poolDBModel.Abonement" Role="Abonement" Multiplicity="0..1" />
-          <End Type="poolDBModel.VisitDate" Role="VisitDate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Abonement">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VisitDate">
-              <PropertyRef Name="AbonementId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VisitDates_Clients">
-          <End Type="poolDBModel.Client" Role="Client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="poolDBModel.VisitDate" Role="VisitDate" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="VisitDate">
-              <PropertyRef Name="ClientId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="CalendarTimeRow">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Lane1" Type="Int32" />
-          <Property Name="Lane2" Type="Int32" />
-          <Property Name="Lane3" Type="Int32" />
-          <Property Name="Lane4" Type="Int32" />
-          <Property Name="Lane5" Type="Int32" />
-          <Property Name="Lane6" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="TimeId" Type="Int32" />
-          <NavigationProperty Name="DayTimeSet" Relationship="poolDBModel.FK_CalendarTimeRow_DayTimeSet" FromRole="CalendarTimeRow" ToRole="DayTimeSet" />
-          <NavigationProperty Name="TrainingGroup" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups1" FromRole="CalendarTimeRow" ToRole="TrainingGroup" />
-          <NavigationProperty Name="TrainingGroup1" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups2" FromRole="CalendarTimeRow" ToRole="TrainingGroup" />
-          <NavigationProperty Name="TrainingGroup2" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups3" FromRole="CalendarTimeRow" ToRole="TrainingGroup" />
-          <NavigationProperty Name="TrainingGroup3" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups4" FromRole="CalendarTimeRow" ToRole="TrainingGroup" />
-          <NavigationProperty Name="TrainingGroup4" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups5" FromRole="CalendarTimeRow" ToRole="TrainingGroup" />
-          <NavigationProperty Name="TrainingGroup5" Relationship="poolDBModel.FK_CalendarTimeRow_TrainingGroups6" FromRole="CalendarTimeRow" ToRole="TrainingGroup" />
-        </EntityType>
-        <EntityType Name="DayTimeSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StartTime" Type="Time" Nullable="false" Precision="7" />
-          <Property Name="EndTime" Type="Time" Nullable="false" Precision="7" />
-          <NavigationProperty Name="CalendarTimeRows" Relationship="poolDBModel.FK_CalendarTimeRow_DayTimeSet" FromRole="DayTimeSet" ToRole="CalendarTimeRow" />
-        </EntityType>
-        <Association Name="FK_CalendarTimeRow_DayTimeSet">
-          <End Type="poolDBModel.DayTimeSet" Role="DayTimeSet" Multiplicity="0..1" />
-          <End Type="poolDBModel.CalendarTimeRow" Role="CalendarTimeRow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DayTimeSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CalendarTimeRow">
-              <PropertyRef Name="TimeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarTimeRow_TrainingGroups1">
-          <End Type="poolDBModel.TrainingGroup" Role="TrainingGroup" Multiplicity="0..1" />
-          <End Type="poolDBModel.CalendarTimeRow" Role="CalendarTimeRow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainingGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CalendarTimeRow">
-              <PropertyRef Name="Lane1" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarTimeRow_TrainingGroups2">
-          <End Type="poolDBModel.TrainingGroup" Role="TrainingGroup" Multiplicity="0..1" />
-          <End Type="poolDBModel.CalendarTimeRow" Role="CalendarTimeRow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainingGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CalendarTimeRow">
-              <PropertyRef Name="Lane2" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarTimeRow_TrainingGroups3">
-          <End Type="poolDBModel.TrainingGroup" Role="TrainingGroup" Multiplicity="0..1" />
-          <End Type="poolDBModel.CalendarTimeRow" Role="CalendarTimeRow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainingGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CalendarTimeRow">
-              <PropertyRef Name="Lane3" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarTimeRow_TrainingGroups4">
-          <End Type="poolDBModel.TrainingGroup" Role="TrainingGroup" Multiplicity="0..1" />
-          <End Type="poolDBModel.CalendarTimeRow" Role="CalendarTimeRow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainingGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CalendarTimeRow">
-              <PropertyRef Name="Lane4" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarTimeRow_TrainingGroups5">
-          <End Type="poolDBModel.TrainingGroup" Role="TrainingGroup" Multiplicity="0..1" />
-          <End Type="poolDBModel.CalendarTimeRow" Role="CalendarTimeRow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainingGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CalendarTimeRow">
-              <PropertyRef Name="Lane5" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CalendarTimeRow_TrainingGroups6">
-          <End Type="poolDBModel.TrainingGroup" Role="TrainingGroup" Multiplicity="0..1" />
-          <End Type="poolDBModel.CalendarTimeRow" Role="CalendarTimeRow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TrainingGroup">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CalendarTimeRow">
-              <PropertyRef Name="Lane6" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -752,13 +755,28 @@
           <EntitySetMapping Name="Abonements">
             <EntityTypeMapping TypeName="poolDBModel.Abonement">
               <MappingFragment StoreEntitySet="Abonement">
-                <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
-                <ScalarProperty Name="VisitTypeId" ColumnName="VisitTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VisitTypeId" ColumnName="VisitTypeId" />
+                <ScalarProperty Name="ServiceTypeId" ColumnName="ServiceTypeId" />
                 <ScalarProperty Name="VisitCount" ColumnName="VisitCount" />
                 <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
                 <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="TrainingGroupId" ColumnName="TrainingGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CalendarTimeRows">
+            <EntityTypeMapping TypeName="poolDBModel.CalendarTimeRow">
+              <MappingFragment StoreEntitySet="CalendarTimeRow">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Lane1" ColumnName="Lane1" />
+                <ScalarProperty Name="Lane2" ColumnName="Lane2" />
+                <ScalarProperty Name="Lane3" ColumnName="Lane3" />
+                <ScalarProperty Name="Lane4" ColumnName="Lane4" />
+                <ScalarProperty Name="Lane5" ColumnName="Lane5" />
+                <ScalarProperty Name="Lane6" ColumnName="Lane6" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TimeId" ColumnName="TimeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -774,83 +792,68 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DayTimeSets">
+            <EntityTypeMapping TypeName="poolDBModel.DayTimeSet">
+              <MappingFragment StoreEntitySet="DayTimeSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="poolDBModel.Employee">
               <MappingFragment StoreEntitySet="Employees">
-                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Secondname" ColumnName="Secondname" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TrainingGroups">
-            <EntityTypeMapping TypeName="poolDBModel.TrainingGroup">
-              <MappingFragment StoreEntitySet="TrainingGroups">
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="CoachId" ColumnName="CoachId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ServiceTypes">
-            <EntityTypeMapping TypeName="poolDBModel.ServiceType">
-              <MappingFragment StoreEntitySet="ServiceTypes">
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VisitTypes">
-            <EntityTypeMapping TypeName="poolDBModel.VisitType">
-              <MappingFragment StoreEntitySet="VisitTypes">
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeesPositions">
             <EntityTypeMapping TypeName="poolDBModel.EmployeesPosition">
               <MappingFragment StoreEntitySet="EmployeesPositions">
-                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ServiceTypes">
+            <EntityTypeMapping TypeName="poolDBModel.ServiceType">
+              <MappingFragment StoreEntitySet="ServiceTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrainingGroups">
+            <EntityTypeMapping TypeName="poolDBModel.TrainingGroup">
+              <MappingFragment StoreEntitySet="TrainingGroups">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="CoachId" ColumnName="CoachId" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="VisitDates">
             <EntityTypeMapping TypeName="poolDBModel.VisitDate">
               <MappingFragment StoreEntitySet="VisitDates">
-                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="AbonementId" ColumnName="AbonementId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CalendarTimeRows">
-            <EntityTypeMapping TypeName="poolDBModel.CalendarTimeRow">
-              <MappingFragment StoreEntitySet="CalendarTimeRow">
-                <ScalarProperty Name="TimeId" ColumnName="TimeId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Lane6" ColumnName="Lane6" />
-                <ScalarProperty Name="Lane5" ColumnName="Lane5" />
-                <ScalarProperty Name="Lane4" ColumnName="Lane4" />
-                <ScalarProperty Name="Lane3" ColumnName="Lane3" />
-                <ScalarProperty Name="Lane2" ColumnName="Lane2" />
-                <ScalarProperty Name="Lane1" ColumnName="Lane1" />
+          <EntitySetMapping Name="VisitTypes">
+            <EntityTypeMapping TypeName="poolDBModel.VisitType">
+              <MappingFragment StoreEntitySet="VisitTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DayTimeSets">
-            <EntityTypeMapping TypeName="poolDBModel.DayTimeSet">
-              <MappingFragment StoreEntitySet="DayTimeSet">
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
