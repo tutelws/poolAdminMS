@@ -35,5 +35,7 @@ namespace poolAdminMS
         public virtual DbSet<TrainingGroup> TrainingGroups { get; set; }
         public virtual DbSet<VisitDate> VisitDates { get; set; }
         public virtual DbSet<VisitType> VisitTypes { get; set; }
+        public virtual DbSet<ClientType> ClientTypes { get; set; }
+        public virtual DbSet<Renter> Renters { get; set; }
     }
 }

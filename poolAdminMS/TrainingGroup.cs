@@ -30,6 +30,7 @@ namespace poolAdminMS
         public string GroupName { get; set; }
         public Nullable<int> CoachId { get; set; }
         public byte[] Color { get; set; }
+        public Nullable<int> RenterId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Abonement> Abonements { get; set; }
@@ -46,5 +47,6 @@ namespace poolAdminMS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CalendarTimeRow> CalendarTimeRows5 { get; set; }
         public virtual Employee Employee { get; set; }
+        public virtual Renter Renter { get; set; }
     }
 }

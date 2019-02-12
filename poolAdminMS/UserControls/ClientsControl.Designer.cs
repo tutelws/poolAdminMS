@@ -65,6 +65,7 @@
             this.searchByAbonementIdButton = new System.Windows.Forms.Button();
             this.searchBySurnameButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.clientTypeLable = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.clientsDataGrid)).BeginInit();
             this.abonementGroupBox.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -75,7 +76,7 @@
             // 
             this.clientsDataGrid.AllowUserToAddRows = false;
             this.clientsDataGrid.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.SteelBlue;
             this.clientsDataGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.clientsDataGrid.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
@@ -87,13 +88,14 @@
             this.secondname,
             this.phone,
             this.gender});
-            this.clientsDataGrid.Location = new System.Drawing.Point(3, 3);
+            this.clientsDataGrid.Location = new System.Drawing.Point(6, 6);
+            this.clientsDataGrid.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.clientsDataGrid.Name = "clientsDataGrid";
             this.clientsDataGrid.ReadOnly = true;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.SteelBlue;
             this.clientsDataGrid.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.clientsDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.clientsDataGrid.Size = new System.Drawing.Size(622, 528);
+            this.clientsDataGrid.Size = new System.Drawing.Size(1244, 1015);
             this.clientsDataGrid.TabIndex = 0;
             this.clientsDataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clientsDataGrid_CellClick);
             // 
@@ -145,6 +147,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.abonementGroupBox.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.abonementGroupBox.Controls.Add(this.clientTypeLable);
             this.abonementGroupBox.Controls.Add(this.deleteAbonButton);
             this.abonementGroupBox.Controls.Add(this.fioLable);
             this.abonementGroupBox.Controls.Add(this.editButton);
@@ -163,10 +166,12 @@
             this.abonementGroupBox.Controls.Add(this.abonementNumLable);
             this.abonementGroupBox.Controls.Add(this.abonementsIdComboBox);
             this.abonementGroupBox.Controls.Add(this.saveAbonButton);
-            this.abonementGroupBox.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.abonementGroupBox.Location = new System.Drawing.Point(628, 3);
+            this.abonementGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.abonementGroupBox.Location = new System.Drawing.Point(1256, 6);
+            this.abonementGroupBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.abonementGroupBox.Name = "abonementGroupBox";
-            this.abonementGroupBox.Size = new System.Drawing.Size(321, 528);
+            this.abonementGroupBox.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.abonementGroupBox.Size = new System.Drawing.Size(642, 1015);
             this.abonementGroupBox.TabIndex = 1;
             this.abonementGroupBox.TabStop = false;
             this.abonementGroupBox.Text = "Абонемент";
@@ -176,9 +181,10 @@
             this.deleteAbonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteAbonButton.Location = new System.Drawing.Point(3, 422);
+            this.deleteAbonButton.Location = new System.Drawing.Point(6, 812);
+            this.deleteAbonButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.deleteAbonButton.Name = "deleteAbonButton";
-            this.deleteAbonButton.Size = new System.Drawing.Size(316, 30);
+            this.deleteAbonButton.Size = new System.Drawing.Size(632, 58);
             this.deleteAbonButton.TabIndex = 18;
             this.deleteAbonButton.Text = "Удалить";
             this.deleteAbonButton.UseVisualStyleBackColor = true;
@@ -187,9 +193,10 @@
             // fioLable
             // 
             this.fioLable.AutoSize = true;
-            this.fioLable.Location = new System.Drawing.Point(6, 28);
+            this.fioLable.Location = new System.Drawing.Point(12, 54);
+            this.fioLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.fioLable.Name = "fioLable";
-            this.fioLable.Size = new System.Drawing.Size(40, 17);
+            this.fioLable.Size = new System.Drawing.Size(74, 30);
             this.fioLable.TabIndex = 17;
             this.fioLable.Text = "ФИО";
             // 
@@ -198,9 +205,10 @@
             this.editButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.editButton.Location = new System.Drawing.Point(3, 385);
+            this.editButton.Location = new System.Drawing.Point(6, 740);
+            this.editButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.editButton.Name = "editButton";
-            this.editButton.Size = new System.Drawing.Size(316, 30);
+            this.editButton.Size = new System.Drawing.Size(632, 58);
             this.editButton.TabIndex = 16;
             this.editButton.Text = "Изменить";
             this.editButton.UseVisualStyleBackColor = true;
@@ -211,9 +219,10 @@
             this.addAbonementButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.addAbonementButton.Location = new System.Drawing.Point(3, 458);
+            this.addAbonementButton.Location = new System.Drawing.Point(6, 881);
+            this.addAbonementButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.addAbonementButton.Name = "addAbonementButton";
-            this.addAbonementButton.Size = new System.Drawing.Size(316, 30);
+            this.addAbonementButton.Size = new System.Drawing.Size(632, 58);
             this.addAbonementButton.TabIndex = 1;
             this.addAbonementButton.Text = "Добавить";
             this.addAbonementButton.UseVisualStyleBackColor = true;
@@ -223,9 +232,10 @@
             // 
             this.dateEndPicker.Enabled = false;
             this.dateEndPicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateEndPicker.Location = new System.Drawing.Point(113, 299);
+            this.dateEndPicker.Location = new System.Drawing.Point(226, 575);
+            this.dateEndPicker.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dateEndPicker.Name = "dateEndPicker";
-            this.dateEndPicker.Size = new System.Drawing.Size(200, 23);
+            this.dateEndPicker.Size = new System.Drawing.Size(396, 37);
             this.dateEndPicker.TabIndex = 15;
             // 
             // trainingGroupLable
@@ -234,9 +244,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trainingGroupLable.AutoSize = true;
-            this.trainingGroupLable.Location = new System.Drawing.Point(6, 162);
+            this.trainingGroupLable.Location = new System.Drawing.Point(12, 368);
+            this.trainingGroupLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.trainingGroupLable.Name = "trainingGroupLable";
-            this.trainingGroupLable.Size = new System.Drawing.Size(157, 17);
+            this.trainingGroupLable.Size = new System.Drawing.Size(284, 30);
             this.trainingGroupLable.TabIndex = 14;
             this.trainingGroupLable.Text = "Тренировочная группа";
             // 
@@ -246,9 +257,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trainingGroupsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.trainingGroupsComboBox.Location = new System.Drawing.Point(154, 159);
+            this.trainingGroupsComboBox.Location = new System.Drawing.Point(308, 362);
+            this.trainingGroupsComboBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.trainingGroupsComboBox.Name = "trainingGroupsComboBox";
-            this.trainingGroupsComboBox.Size = new System.Drawing.Size(159, 25);
+            this.trainingGroupsComboBox.Size = new System.Drawing.Size(314, 38);
             this.trainingGroupsComboBox.TabIndex = 13;
             // 
             // dateLable
@@ -257,9 +269,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dateLable.AutoSize = true;
-            this.dateLable.Location = new System.Drawing.Point(6, 273);
+            this.dateLable.Location = new System.Drawing.Point(12, 525);
+            this.dateLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.dateLable.Name = "dateLable";
-            this.dateLable.Size = new System.Drawing.Size(176, 17);
+            this.dateLable.Size = new System.Drawing.Size(325, 30);
             this.dateLable.TabIndex = 11;
             this.dateLable.Text = "Дата окончания действия";
             // 
@@ -268,9 +281,10 @@
             this.checkVisitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkVisitButton.Location = new System.Drawing.Point(3, 349);
+            this.checkVisitButton.Location = new System.Drawing.Point(6, 671);
+            this.checkVisitButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.checkVisitButton.Name = "checkVisitButton";
-            this.checkVisitButton.Size = new System.Drawing.Size(316, 30);
+            this.checkVisitButton.Size = new System.Drawing.Size(632, 58);
             this.checkVisitButton.TabIndex = 10;
             this.checkVisitButton.Text = "Отметить посещение";
             this.checkVisitButton.UseVisualStyleBackColor = true;
@@ -282,9 +296,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.visitCountTextBox.Enabled = false;
-            this.visitCountTextBox.Location = new System.Drawing.Point(247, 234);
+            this.visitCountTextBox.Location = new System.Drawing.Point(494, 450);
+            this.visitCountTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.visitCountTextBox.Name = "visitCountTextBox";
-            this.visitCountTextBox.Size = new System.Drawing.Size(66, 23);
+            this.visitCountTextBox.Size = new System.Drawing.Size(128, 37);
             this.visitCountTextBox.TabIndex = 9;
             this.visitCountTextBox.TextChanged += new System.EventHandler(this.visitCountTextBox_TextChanged);
             // 
@@ -294,9 +309,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.visitCountLable.AutoSize = true;
-            this.visitCountLable.Location = new System.Drawing.Point(6, 240);
+            this.visitCountLable.Location = new System.Drawing.Point(12, 462);
+            this.visitCountLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.visitCountLable.Name = "visitCountLable";
-            this.visitCountLable.Size = new System.Drawing.Size(245, 17);
+            this.visitCountLable.Size = new System.Drawing.Size(445, 30);
             this.visitCountLable.TabIndex = 8;
             this.visitCountLable.Text = "Количество оставшихся посещений";
             // 
@@ -306,9 +322,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.serviceTypeLable.AutoSize = true;
-            this.serviceTypeLable.Location = new System.Drawing.Point(6, 131);
+            this.serviceTypeLable.Location = new System.Drawing.Point(12, 308);
+            this.serviceTypeLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.serviceTypeLable.Name = "serviceTypeLable";
-            this.serviceTypeLable.Size = new System.Drawing.Size(126, 17);
+            this.serviceTypeLable.Size = new System.Drawing.Size(239, 30);
             this.serviceTypeLable.TabIndex = 7;
             this.serviceTypeLable.Text = "Тип обслуживания";
             // 
@@ -318,9 +335,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.visitTypeLable.AutoSize = true;
-            this.visitTypeLable.Location = new System.Drawing.Point(6, 99);
+            this.visitTypeLable.Location = new System.Drawing.Point(12, 246);
+            this.visitTypeLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.visitTypeLable.Name = "visitTypeLable";
-            this.visitTypeLable.Size = new System.Drawing.Size(109, 17);
+            this.visitTypeLable.Size = new System.Drawing.Size(198, 30);
             this.visitTypeLable.TabIndex = 6;
             this.visitTypeLable.Text = "Тип посещения";
             // 
@@ -330,9 +348,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.serviceTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.serviceTypeComboBox.Location = new System.Drawing.Point(154, 128);
+            this.serviceTypeComboBox.Location = new System.Drawing.Point(308, 302);
+            this.serviceTypeComboBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.serviceTypeComboBox.Name = "serviceTypeComboBox";
-            this.serviceTypeComboBox.Size = new System.Drawing.Size(159, 25);
+            this.serviceTypeComboBox.Size = new System.Drawing.Size(314, 38);
             this.serviceTypeComboBox.TabIndex = 5;
             // 
             // visitTypeСomboBox
@@ -341,9 +360,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.visitTypeСomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.visitTypeСomboBox.Location = new System.Drawing.Point(154, 96);
+            this.visitTypeСomboBox.Location = new System.Drawing.Point(308, 241);
+            this.visitTypeСomboBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.visitTypeСomboBox.Name = "visitTypeСomboBox";
-            this.visitTypeСomboBox.Size = new System.Drawing.Size(159, 25);
+            this.visitTypeСomboBox.Size = new System.Drawing.Size(314, 38);
             this.visitTypeСomboBox.TabIndex = 4;
             // 
             // abonementNumLable
@@ -352,9 +372,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.abonementNumLable.AutoSize = true;
-            this.abonementNumLable.Location = new System.Drawing.Point(6, 68);
+            this.abonementNumLable.Location = new System.Drawing.Point(12, 187);
+            this.abonementNumLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.abonementNumLable.Name = "abonementNumLable";
-            this.abonementNumLable.Size = new System.Drawing.Size(142, 17);
+            this.abonementNumLable.Size = new System.Drawing.Size(247, 30);
             this.abonementNumLable.TabIndex = 3;
             this.abonementNumLable.Text = "Номер Абонемента";
             // 
@@ -364,9 +385,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.abonementsIdComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.abonementsIdComboBox.Location = new System.Drawing.Point(154, 65);
+            this.abonementsIdComboBox.Location = new System.Drawing.Point(308, 181);
+            this.abonementsIdComboBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.abonementsIdComboBox.Name = "abonementsIdComboBox";
-            this.abonementsIdComboBox.Size = new System.Drawing.Size(159, 25);
+            this.abonementsIdComboBox.Size = new System.Drawing.Size(314, 38);
             this.abonementsIdComboBox.TabIndex = 2;
             this.abonementsIdComboBox.SelectedIndexChanged += new System.EventHandler(this.abonementsIdComboBox_SelectedIndexChanged);
             // 
@@ -375,10 +397,11 @@
             this.saveAbonButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveAbonButton.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.saveAbonButton.Location = new System.Drawing.Point(3, 495);
+            this.saveAbonButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveAbonButton.Location = new System.Drawing.Point(6, 952);
+            this.saveAbonButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.saveAbonButton.Name = "saveAbonButton";
-            this.saveAbonButton.Size = new System.Drawing.Size(316, 30);
+            this.saveAbonButton.Size = new System.Drawing.Size(632, 58);
             this.saveAbonButton.TabIndex = 0;
             this.saveAbonButton.Text = "Сохранить";
             this.saveAbonButton.UseVisualStyleBackColor = true;
@@ -396,8 +419,9 @@
             this.panel1.Controls.Add(this.searchBySurnameButton);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(954, 41);
+            this.panel1.Size = new System.Drawing.Size(1908, 79);
             this.panel1.TabIndex = 2;
             // 
             // editClientButton
@@ -407,11 +431,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.editClientButton.FlatAppearance.BorderSize = 0;
             this.editClientButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editClientButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editClientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editClientButton.ForeColor = System.Drawing.Color.MintCream;
-            this.editClientButton.Location = new System.Drawing.Point(228, -1);
+            this.editClientButton.Location = new System.Drawing.Point(456, -2);
+            this.editClientButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.editClientButton.Name = "editClientButton";
-            this.editClientButton.Size = new System.Drawing.Size(115, 41);
+            this.editClientButton.Size = new System.Drawing.Size(230, 79);
             this.editClientButton.TabIndex = 22;
             this.editClientButton.Text = "Редактировать";
             this.editClientButton.UseVisualStyleBackColor = true;
@@ -424,11 +449,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteClientButton.FlatAppearance.BorderSize = 0;
             this.deleteClientButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteClientButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteClientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteClientButton.ForeColor = System.Drawing.Color.MintCream;
-            this.deleteClientButton.Location = new System.Drawing.Point(114, -2);
+            this.deleteClientButton.Location = new System.Drawing.Point(228, -4);
+            this.deleteClientButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.deleteClientButton.Name = "deleteClientButton";
-            this.deleteClientButton.Size = new System.Drawing.Size(108, 41);
+            this.deleteClientButton.Size = new System.Drawing.Size(216, 79);
             this.deleteClientButton.TabIndex = 21;
             this.deleteClientButton.Text = "Удалить";
             this.deleteClientButton.UseVisualStyleBackColor = true;
@@ -441,11 +467,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.addClientButton.FlatAppearance.BorderSize = 0;
             this.addClientButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addClientButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addClientButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addClientButton.ForeColor = System.Drawing.Color.MintCream;
-            this.addClientButton.Location = new System.Drawing.Point(0, -2);
+            this.addClientButton.Location = new System.Drawing.Point(0, -4);
+            this.addClientButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.addClientButton.Name = "addClientButton";
-            this.addClientButton.Size = new System.Drawing.Size(108, 41);
+            this.addClientButton.Size = new System.Drawing.Size(216, 79);
             this.addClientButton.TabIndex = 20;
             this.addClientButton.Text = "Добавить";
             this.addClientButton.UseVisualStyleBackColor = true;
@@ -458,11 +485,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clearFilterButton.FlatAppearance.BorderSize = 0;
             this.clearFilterButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.clearFilterButton.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clearFilterButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clearFilterButton.ForeColor = System.Drawing.Color.MintCream;
-            this.clearFilterButton.Location = new System.Drawing.Point(349, -1);
+            this.clearFilterButton.Location = new System.Drawing.Point(698, -2);
+            this.clearFilterButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.clearFilterButton.Name = "clearFilterButton";
-            this.clearFilterButton.Size = new System.Drawing.Size(108, 41);
+            this.clearFilterButton.Size = new System.Drawing.Size(216, 79);
             this.clearFilterButton.TabIndex = 19;
             this.clearFilterButton.Text = "Сбросить";
             this.clearFilterButton.UseVisualStyleBackColor = true;
@@ -470,10 +498,11 @@
             // 
             // searchTextBox
             // 
-            this.searchTextBox.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchTextBox.Location = new System.Drawing.Point(463, 8);
+            this.searchTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchTextBox.Location = new System.Drawing.Point(926, 15);
+            this.searchTextBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(162, 21);
+            this.searchTextBox.Size = new System.Drawing.Size(320, 32);
             this.searchTextBox.TabIndex = 2;
             this.searchTextBox.Tag = "";
             this.searchTextBox.Enter += new System.EventHandler(this.searchTextBox_Enter);
@@ -485,11 +514,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.searchByAbonementIdButton.FlatAppearance.BorderSize = 0;
             this.searchByAbonementIdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.searchByAbonementIdButton.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchByAbonementIdButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchByAbonementIdButton.ForeColor = System.Drawing.Color.MintCream;
-            this.searchByAbonementIdButton.Location = new System.Drawing.Point(758, -1);
+            this.searchByAbonementIdButton.Location = new System.Drawing.Point(1516, -2);
+            this.searchByAbonementIdButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.searchByAbonementIdButton.Name = "searchByAbonementIdButton";
-            this.searchByAbonementIdButton.Size = new System.Drawing.Size(196, 41);
+            this.searchByAbonementIdButton.Size = new System.Drawing.Size(392, 79);
             this.searchByAbonementIdButton.TabIndex = 18;
             this.searchByAbonementIdButton.Text = "Искать по номеру абонемента";
             this.searchByAbonementIdButton.UseVisualStyleBackColor = true;
@@ -502,11 +532,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.searchBySurnameButton.FlatAppearance.BorderSize = 0;
             this.searchBySurnameButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.searchBySurnameButton.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchBySurnameButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchBySurnameButton.ForeColor = System.Drawing.Color.MintCream;
-            this.searchBySurnameButton.Location = new System.Drawing.Point(628, 0);
+            this.searchBySurnameButton.Location = new System.Drawing.Point(1256, 0);
+            this.searchBySurnameButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.searchBySurnameButton.Name = "searchBySurnameButton";
-            this.searchBySurnameButton.Size = new System.Drawing.Size(135, 38);
+            this.searchBySurnameButton.Size = new System.Drawing.Size(270, 73);
             this.searchBySurnameButton.TabIndex = 17;
             this.searchBySurnameButton.Text = "Искать по фамилии";
             this.searchBySurnameButton.UseVisualStyleBackColor = true;
@@ -517,19 +548,34 @@
             this.panel2.Controls.Add(this.clientsDataGrid);
             this.panel2.Controls.Add(this.abonementGroupBox);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 37);
+            this.panel2.Location = new System.Drawing.Point(0, 71);
+            this.panel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(954, 537);
+            this.panel2.Size = new System.Drawing.Size(1908, 1033);
             this.panel2.TabIndex = 3;
+            // 
+            // clientTypeLable
+            // 
+            this.clientTypeLable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clientTypeLable.AutoSize = true;
+            this.clientTypeLable.Location = new System.Drawing.Point(12, 105);
+            this.clientTypeLable.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.clientTypeLable.Name = "clientTypeLable";
+            this.clientTypeLable.Size = new System.Drawing.Size(162, 30);
+            this.clientTypeLable.TabIndex = 20;
+            this.clientTypeLable.Text = "Тип клиента";
             // 
             // ClientsControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "ClientsControl";
-            this.Size = new System.Drawing.Size(954, 574);
+            this.Size = new System.Drawing.Size(1908, 1104);
             ((System.ComponentModel.ISupportInitialize)(this.clientsDataGrid)).EndInit();
             this.abonementGroupBox.ResumeLayout(false);
             this.abonementGroupBox.PerformLayout();
@@ -577,5 +623,6 @@
         private System.Windows.Forms.Button deleteClientButton;
         private System.Windows.Forms.Button addClientButton;
         private System.Windows.Forms.Button deleteAbonButton;
+        private System.Windows.Forms.Label clientTypeLable;
     }
 }

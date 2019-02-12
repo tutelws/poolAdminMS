@@ -21,8 +21,8 @@ namespace poolAdminMS
         public Nullable<int> Lane4 { get; set; }
         public Nullable<int> Lane5 { get; set; }
         public Nullable<int> Lane6 { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> TimeId { get; set; }
+        public System.DateTime Date { get; set; }
+        public int TimeId { get; set; }
     
         public virtual DayTimeSet DayTimeSet { get; set; }
         public virtual TrainingGroup TrainingGroup { get; set; }

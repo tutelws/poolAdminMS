@@ -18,6 +18,7 @@ namespace poolAdminMS
         private bool _isClickedCalendar;
         private bool _isClickedClients;
         private bool _isClickedTrainingGroups;
+        
         public MainForm()
         {
             InitializeComponent();

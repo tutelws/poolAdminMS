@@ -1,30 +1,36 @@
 ﻿using System;
+using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using poolAdminMS.Interfaces;
+using poolAdminMS.UserControls;
 using System.Drawing;
+
 
 namespace poolAdminMS.SystemClasses
 {
-    
+
     public class PoolAdminSystem : ICalendarManager, IClientManager, ITrainingGroupsManager
     {
+
         //CalendarFields
         private List<DayTimeSet> currDayTimeSet;
+        //весь список строк для каждого промежутка времени на определенный день
+        private List<CalendarTimeRow> currCalendarTimeRows;
         //ClientManagerFields
         private List<TrainingGroup> currTrainingGroups;
         private List<ServiceType> currServiceTypes;
         private List<VisitType> currVisitTypes;
         private List<Client> currClientsList;
         private List<Abonement> currClientAbonements;
-
+        private List<ClientType> currClientTypes;
         //TrainingGroupManagerFields
         private List<Employee> currEmployeeList;
         private List<EmployeesPosition> currEmployeePositions;
         //private List<Employee> currCoachList;
-        
+
 
         public List<ServiceType> CurrServiceTypes
         {
@@ -52,22 +58,155 @@ namespace poolAdminMS.SystemClasses
             //}
         }
 
-        
+
 
 
         public PoolAdminSystem()
         {
-           
+
         }
 
+        private void SetCalendarTimeRowLane(ref CalendarTimeRow ctr, int laneIndex, int? laneValue)
+        { 
+            switch (laneIndex)
+            {
+                case 1:
+                    ctr.Lane1 = laneValue;
+                    break;
+                case 2:
+                    ctr.Lane2 = laneValue;
+                    break;
+                case 3:
+                    ctr.Lane3 = laneValue;
+                    break;
+                case 4:
+                    ctr.Lane4 = laneValue;
+                    break;
+                case 5:
+                    ctr.Lane5 = laneValue;
+                    break;
+                case 6:
+                    ctr.Lane6 = laneValue;
+                    break;
+            }
+        }
+        public void SaveCalendarDataGridViewCmbCellChanges(DateTime currDate, DataGridViewComboBoxCell cmbCell)
+        {
+            int rowInd = cmbCell.RowIndex;
+            int dayTimeSetId = DayTimeSetIndexToId(rowInd);
+            using (poolDBEntities ent = new poolDBEntities())
+            {
+                List<CalendarTimeRow> currDateCtrs = ent.CalendarTimeRows.Where(c => System.Data.Entity.DbFunctions.TruncateTime(c.Date) == currDate.Date).ToList();
+                CalendarTimeRow ctr = currDateCtrs?.Find(c => c.TimeId == dayTimeSetId);
+                if (ctr == null)
+                {
+                    if (cmbCell.Value == null)
+                        return;
+                    CalendarTimeRow newCtr = new CalendarTimeRow();
+                    newCtr.TimeId = dayTimeSetId;
+                    newCtr.Date = currDate;
+                    SetCalendarTimeRowLane(ref newCtr, cmbCell.ColumnIndex, GetTrainingGroupIdByName(cmbCell.Value as string));
+                    ent.CalendarTimeRows.Add(newCtr);
+                    //ent.Entry(newCtr).State = System.Data.Entity.EntityState.Added;
+                }
+                else
+                {
+                    SetCalendarTimeRowLane(ref ctr, cmbCell.ColumnIndex, GetTrainingGroupIdByName(cmbCell.Value as string));
+                    if (ctr.Lane1 == null &&
+                        ctr.Lane2 == null &&
+                        ctr.Lane3 == null &&
+                        ctr.Lane4 == null &&
+                        ctr.Lane5 == null &&
+                        ctr.Lane6 == null)
+                        ent.CalendarTimeRows.Remove(ctr);
+                    //ent.Entry(ctr).State = System.Data.Entity.EntityState.Modified;
+                }
+                ent.SaveChanges();
+            }
+        }
 
+        //trash
+        public void SaveCalendarTimeRows(DataGridView dgv, DateTime currDate)
+        {
+            using (poolDBEntities ent = new poolDBEntities())
+            {
+                bool isColumnNotEmpty = false;
+                for (int i = 0; i < dgv.RowCount; i++)
+                {
+                    isColumnNotEmpty = false;
+                    for (int j = 1; j < dgv.ColumnCount; j++)
+                        if ((dgv[j, i] as DataGridViewComboBoxCell).Value != null)
+                        {
+                            isColumnNotEmpty = true;
+                            break;
+                        }
+                    if (isColumnNotEmpty)
+                    {
+                        CalendarTimeRow ctr = new CalendarTimeRow();
+                        List<TrainingGroup> tgs;
+                        tgs = GetTrainingGroupByName(dgv[1, i].Value as string);
+                        if (tgs.Count != 0)
+                            ctr.Lane1 = tgs[0].Id;
+                        tgs = GetTrainingGroupByName(dgv[2, i].Value as string);
+                        if (tgs.Count != 0)
+                            ctr.Lane2 = tgs[0].Id;
+                        tgs = GetTrainingGroupByName(dgv[3, i].Value as string);
+                        if (tgs.Count != 0)
+                            ctr.Lane3 = tgs[0].Id;
+                        tgs = GetTrainingGroupByName(dgv[4, i].Value as string);
+                        if (tgs.Count != 0)
+                            ctr.Lane4 = tgs[0].Id;
+                        tgs = GetTrainingGroupByName(dgv[5, i].Value as string);
+                        if (tgs.Count != 0)
+                            ctr.Lane5 = tgs[0].Id;
+                        tgs = GetTrainingGroupByName(dgv[6, i].Value as string);
+                        if (tgs.Count != 0)
+                            ctr.Lane6 = tgs[0].Id;
+                        ctr.TimeId = DayTimeSetIndexToId(i);
+                        ctr.Date = currDate;
+                        ent.CalendarTimeRows.Add(ctr);
+                        ent.SaveChanges();
+                    }
+                }
+            }
+            
+        }
 
+        #region CalendarManager
+        public int DayTimeSetIdToIndex(int id)
+        {
+            if (currDayTimeSet == null)
+                GetNewDayTimeSetList();
+            return currDayTimeSet.FindIndex(dts => dts.Id == id);
+        }
+        public int DayTimeSetIndexToId(int index)
+        {
+            if (currDayTimeSet == null)
+                GetNewDayTimeSetList();
+            return currDayTimeSet[index].Id;
+
+        }
+        public List<CalendarTimeRow> GetNewCalendarTimeRowsByDate(DateTime currDate)
+        {
+            using (poolDBEntities ent = new poolDBEntities())
+            {
+                currCalendarTimeRows = ent.CalendarTimeRows
+                    .Where(c => System.Data.Entity.DbFunctions.TruncateTime(c.Date) == currDate.Date).ToList();
+
+                //currCalendarTimeRows = trans.ToList();
+                return currCalendarTimeRows;
+            }
+        }
         public void SetTimeRowsOnDay(DateTime date)
         {
             using (poolDBEntities ent = new poolDBEntities())
             {
 
             }
+        }
+        public string GetComboBoxValueByTrainingGroupId(int? id)
+        {
+            return currTrainingGroups.Find(t => t.Id == id)?.GroupName;
         }
         public TrainingGroup GetTrainingGroupByComboBoxIndex(int ind)
         {
@@ -102,7 +241,7 @@ namespace poolAdminMS.SystemClasses
             }
             return currTrainingGroups;
         }
-
+        #endregion
         #region ClientManager
 
         #region getById
@@ -126,14 +265,32 @@ namespace poolAdminMS.SystemClasses
         {
             return currTrainingGroups.Find(t => t.Id == id);
         }
+        public ClientType GetClientTypeByClient(Client client)
+        {
+            if (currClientTypes == null)
+                GetNewClientTypeList();
+            return currClientTypes.Find(c => c.Id == client.TypeId);
+        }
         #endregion
 
         #region getByName(string)
-        public int GetTrainingGroupIdByName(string trainingGroupName)
+        public int GetClientTypeComboBoxIndexById(int id)
+        {
+            if (currClientTypes == null)
+                GetNewClientTypeList();
+            return currClientTypes.FindIndex(c => c.Id == id);
+        }
+        public int GetClientTypeIdByName(string name)
+        {
+            if (currClientTypes == null)
+                GetNewClientTypeList();
+            return currClientTypes.Find(c => c.TypeName == name).Id;
+        }
+        public int? GetTrainingGroupIdByName(string trainingGroupName)
         {
             int id = 0;
             TrainingGroup tg = currTrainingGroups.Find(t => t.GroupName == trainingGroupName);
-            if (tg == null) return -1;
+            if (tg == null) return null;
             id = currTrainingGroups.Find(t => t.GroupName == trainingGroupName).Id;
             return id;
         }
@@ -154,6 +311,14 @@ namespace poolAdminMS.SystemClasses
         #endregion
 
         #region getNewList
+        public List<ClientType> GetNewClientTypeList()
+        {
+            using (poolDBEntities ent = new poolDBEntities())
+            {
+                currClientTypes = ent.ClientTypes.ToList();
+                return currClientTypes;
+            }
+        }
         public List<Client> GetClientListBySurname(string surname)
         {
             return currClientsList.FindAll(c => string.Compare(c.Surname, surname, true) == 0);
@@ -217,8 +382,8 @@ namespace poolAdminMS.SystemClasses
             }
             return currClientsList;
         }
-        
-        
+
+
         #endregion
         public void CheckVisitWithDate(int abonementId, DateTime date)
         {
@@ -311,7 +476,6 @@ namespace poolAdminMS.SystemClasses
 
         #endregion
         #endregion
-
         #region TrainingGroupManager
         public List<EmployeesPosition> GetNewEmployeePositionList()
         {
@@ -322,7 +486,7 @@ namespace poolAdminMS.SystemClasses
             }
             return currEmployeePositions;
         }
-       
+
         public List<Employee> GetNewEmployeeList()
         {
             GetNewEmployeePositionList();
@@ -336,7 +500,7 @@ namespace poolAdminMS.SystemClasses
         public List<Employee> GetNewEmployeeListByPositionId(params int[] ids)
         {
             List<Employee> empList = new List<Employee>();
-            
+
             using (poolDBEntities ent = new poolDBEntities())
             {
                 int currPosId = 1;
@@ -346,7 +510,7 @@ namespace poolAdminMS.SystemClasses
                     List<Employee> emps = ent.Employees.Where(e => e.PositionId == currPosId).ToList();
                     empList.AddRange(emps);
                 }
-                
+
             }
             return empList;
         }
@@ -356,6 +520,8 @@ namespace poolAdminMS.SystemClasses
         }
         public List<TrainingGroup> GetTrainingGroupByName(string name)
         {
+            if (name == CalendarDayLarge.EMPTY_CELL_DEFAULT_VALUE)
+                return null;
             return currTrainingGroups.FindAll(t => string.Compare(t.GroupName, name, true) == 0);
         }
         public string GetPositionNameById(int id)
@@ -374,14 +540,14 @@ namespace poolAdminMS.SystemClasses
         {
             return currEmployeePositions.Find(ep => ep.PositionName == name);
         }
-       
+
         public List<Client> GetClientsByGroupId(int id)
         {
             List<Client> curr = new List<Client>();
             using (poolDBEntities ent = new poolDBEntities())
             {
                 curr = ent.Clients.Where(c => (
-                c.Abonements.Where(a => 
+                c.Abonements.Where(a =>
                 a.TrainingGroupId == id)
                 .ToList().Count > 0))
                 .ToList();
@@ -452,7 +618,15 @@ namespace poolAdminMS.SystemClasses
             }
         }
 
-        
+
         #endregion
+
+        public Image ConvertAbonimentIdToBarcode(int id, int maxBarHeight)
+        {
+            Zen.Barcode.Code128BarcodeDraw barcodeImage = Zen.Barcode.BarcodeDrawFactory.Code128WithChecksum;
+
+            return barcodeImage.Draw(id.ToString(), maxBarHeight);
+        }
+
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="poolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="poolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Abonement">
           <Key>
             <PropertyRef Name="Id" />
@@ -28,8 +28,8 @@
           <Property Name="Lane4" Type="int" />
           <Property Name="Lane5" Type="int" />
           <Property Name="Lane6" Type="int" />
-          <Property Name="Date" Type="date" />
-          <Property Name="TimeId" Type="int" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="TimeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Clients">
           <Key>
@@ -41,6 +41,14 @@
           <Property Name="Secondname" Type="nvarchar(max)" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Gender" Type="bit" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="DayTimeSet">
           <Key>
@@ -68,6 +76,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PositionName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="Renters">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RenterName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RenterDescription" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="ServiceTypes">
           <Key>
             <PropertyRef Name="Id" />
@@ -83,6 +99,7 @@
           <Property Name="GroupName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CoachId" Type="int" />
           <Property Name="Color" Type="binary" MaxLength="4" />
+          <Property Name="RenterId" Type="int" />
         </EntityType>
         <EntityType Name="VisitDates">
           <Key>
@@ -151,7 +168,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CalendarTimeRow_DayTimeSet">
-          <End Role="DayTimeSet" Type="Self.DayTimeSet" Multiplicity="0..1" />
+          <End Role="DayTimeSet" Type="Self.DayTimeSet" Multiplicity="1" />
           <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DayTimeSet">
@@ -234,6 +251,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Clients_ClientTypes">
+          <End Role="ClientTypes" Type="Self.ClientTypes" Multiplicity="1" />
+          <End Role="Clients" Type="Self.Clients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Clients">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Employees_EmployeesPositions">
           <End Role="EmployeesPositions" Type="Self.EmployeesPositions" Multiplicity="0..1" />
           <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
@@ -257,6 +286,18 @@
             </Principal>
             <Dependent Role="TrainingGroups">
               <PropertyRef Name="CoachId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TrainingGroups_Renters">
+          <End Role="Renters" Type="Self.Renters" Multiplicity="0..1" />
+          <End Role="TrainingGroups" Type="Self.TrainingGroups" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Renters">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingGroups">
+              <PropertyRef Name="RenterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -290,9 +331,11 @@
           <EntitySet Name="Abonement" EntityType="Self.Abonement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CalendarTimeRow" EntityType="Self.CalendarTimeRow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientTypes" EntityType="Self.ClientTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DayTimeSet" EntityType="Self.DayTimeSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeesPositions" EntityType="Self.EmployeesPositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Renters" EntityType="Self.Renters" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServiceTypes" EntityType="Self.ServiceTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TrainingGroups" EntityType="Self.TrainingGroups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisitDates" EntityType="Self.VisitDates" Schema="dbo" store:Type="Tables" />
@@ -341,12 +384,20 @@
             <End Role="TrainingGroups" EntitySet="TrainingGroups" />
             <End Role="CalendarTimeRow" EntitySet="CalendarTimeRow" />
           </AssociationSet>
+          <AssociationSet Name="FK_Clients_ClientTypes" Association="Self.FK_Clients_ClientTypes">
+            <End Role="ClientTypes" EntitySet="ClientTypes" />
+            <End Role="Clients" EntitySet="Clients" />
+          </AssociationSet>
           <AssociationSet Name="FK_Employees_EmployeesPositions" Association="Self.FK_Employees_EmployeesPositions">
             <End Role="EmployeesPositions" EntitySet="EmployeesPositions" />
             <End Role="Employees" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_TrainingGroups_Employees" Association="Self.FK_TrainingGroups_Employees">
             <End Role="Employees" EntitySet="Employees" />
+            <End Role="TrainingGroups" EntitySet="TrainingGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TrainingGroups_Renters" Association="Self.FK_TrainingGroups_Renters">
+            <End Role="Renters" EntitySet="Renters" />
             <End Role="TrainingGroups" EntitySet="TrainingGroups" />
           </AssociationSet>
           <AssociationSet Name="FK_VisitDates_Abonement" Association="Self.FK_VisitDates_Abonement">
@@ -358,8 +409,7 @@
             <End Role="VisitDates" EntitySet="VisitDates" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="poolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -391,8 +441,8 @@
           <Property Name="Lane4" Type="Int32" />
           <Property Name="Lane5" Type="Int32" />
           <Property Name="Lane6" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="TimeId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="TimeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DayTimeSet" Relationship="Self.FK_CalendarTimeRow_DayTimeSet" FromRole="CalendarTimeRow" ToRole="DayTimeSet" />
           <NavigationProperty Name="TrainingGroup" Relationship="Self.FK_CalendarTimeRow_TrainingGroups1" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
           <NavigationProperty Name="TrainingGroup1" Relationship="Self.FK_CalendarTimeRow_TrainingGroups2" FromRole="CalendarTimeRow" ToRole="TrainingGroups" />
@@ -413,6 +463,8 @@
           <Property Name="Gender" Type="Boolean" />
           <NavigationProperty Name="Abonements" Relationship="Self.FK_Abonement_Clients" FromRole="Clients" ToRole="Abonement" />
           <NavigationProperty Name="VisitDates" Relationship="Self.FK_VisitDates_Clients" FromRole="Clients" ToRole="VisitDates" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ClientType" Relationship="poolDBModel.FK_Clients_ClientTypes" FromRole="Client" ToRole="ClientType" />
         </EntityType>
         <EntityType Name="DayTimeSet">
           <Key>
@@ -468,6 +520,8 @@
           <NavigationProperty Name="CalendarTimeRows4" Relationship="Self.FK_CalendarTimeRow_TrainingGroups5" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
           <NavigationProperty Name="CalendarTimeRows5" Relationship="Self.FK_CalendarTimeRow_TrainingGroups6" FromRole="TrainingGroups" ToRole="CalendarTimeRow" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_TrainingGroups_Employees" FromRole="TrainingGroups" ToRole="Employees" />
+          <Property Name="RenterId" Type="Int32" />
+          <NavigationProperty Name="Renter" Relationship="poolDBModel.FK_TrainingGroups_Renters" FromRole="TrainingGroup" ToRole="Renter" />
         </EntityType>
         <EntityType Name="VisitDate">
           <Key>
@@ -551,7 +605,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CalendarTimeRow_DayTimeSet">
-          <End Role="DayTimeSet" Type="Self.DayTimeSet" Multiplicity="0..1" />
+          <End Role="DayTimeSet" Type="Self.DayTimeSet" Multiplicity="1" />
           <End Role="CalendarTimeRow" Type="Self.CalendarTimeRow" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DayTimeSet">
@@ -745,7 +799,58 @@
             <End Role="Employees" EntitySet="Employees" />
             <End Role="TrainingGroups" EntitySet="TrainingGroups" />
           </AssociationSet>
+          <EntitySet Name="ClientTypes" EntityType="poolDBModel.ClientType" />
+          <AssociationSet Name="FK_Clients_ClientTypes" Association="poolDBModel.FK_Clients_ClientTypes">
+            <End Role="ClientType" EntitySet="ClientTypes" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <EntitySet Name="Renters" EntityType="poolDBModel.Renter" />
+          <AssociationSet Name="FK_TrainingGroups_Renters" Association="poolDBModel.FK_TrainingGroups_Renters">
+            <End Role="Renter" EntitySet="Renters" />
+            <End Role="TrainingGroup" EntitySet="TrainingGroups" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ClientType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clients" Relationship="poolDBModel.FK_Clients_ClientTypes" FromRole="ClientType" ToRole="Client" />
+        </EntityType>
+        <Association Name="FK_Clients_ClientTypes">
+          <End Type="poolDBModel.ClientType" Role="ClientType" Multiplicity="1" />
+          <End Type="poolDBModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClientType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Renter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RenterName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RenterDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TrainingGroups" Relationship="poolDBModel.FK_TrainingGroups_Renters" FromRole="Renter" ToRole="TrainingGroup" />
+        </EntityType>
+        <Association Name="FK_TrainingGroups_Renters">
+          <End Type="poolDBModel.Renter" Role="Renter" Multiplicity="0..1" />
+          <End Type="poolDBModel.TrainingGroup" Role="TrainingGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Renter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TrainingGroup">
+              <PropertyRef Name="RenterId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -783,6 +888,7 @@
           <EntitySetMapping Name="Clients">
             <EntityTypeMapping TypeName="poolDBModel.Client">
               <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
@@ -832,6 +938,7 @@
           <EntitySetMapping Name="TrainingGroups">
             <EntityTypeMapping TypeName="poolDBModel.TrainingGroup">
               <MappingFragment StoreEntitySet="TrainingGroups">
+                <ScalarProperty Name="RenterId" ColumnName="RenterId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
                 <ScalarProperty Name="CoachId" ColumnName="CoachId" />
@@ -854,6 +961,23 @@
               <MappingFragment StoreEntitySet="VisitTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientTypes">
+            <EntityTypeMapping TypeName="poolDBModel.ClientType">
+              <MappingFragment StoreEntitySet="ClientTypes">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Renters">
+            <EntityTypeMapping TypeName="poolDBModel.Renter">
+              <MappingFragment StoreEntitySet="Renters">
+                <ScalarProperty Name="RenterDescription" ColumnName="RenterDescription" />
+                <ScalarProperty Name="RenterName" ColumnName="RenterName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

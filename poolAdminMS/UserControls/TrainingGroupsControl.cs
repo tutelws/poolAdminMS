@@ -195,7 +195,7 @@ namespace poolAdminMS.UserControls
             List<TrainingGroup> tg = trainingGroupsManager.GetTrainingGroupByName(searchTextBox.Text);
             if (tg.Count < 1)
             {
-                MessageBox.Show("Тренеровочные группы с таким названием не найдены.");
+                MessageBox.Show("Тренировочные группы с таким названием не найдены.");
                 return;
             }
             foreach (TrainingGroup t in tg)

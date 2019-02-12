@@ -27,10 +27,10 @@ namespace poolAdminMS.Interfaces
         List<TrainingGroup> GetNewTrainingGroupList();
         List<ServiceType> GetNewServiceTypeList();
         List<VisitType> GetNewVisitTypeList();
-
+        List<ClientType> GetNewClientTypeList();
 
         TrainingGroup GetTrainingGroupById(int id);
-        int GetTrainingGroupIdByName(string trainingGroupName);
+        int? GetTrainingGroupIdByName(string trainingGroupName);
 
         ServiceType GetServiceTypeById(int id);
         int GetServiceTypeIdByName(string serviceTypeName);
@@ -41,5 +41,8 @@ namespace poolAdminMS.Interfaces
         Client GetClientById(int id);
         Abonement GetAbonementById(int id);
 
+        ClientType GetClientTypeByClient(Client client);
+        int GetClientTypeIdByName(string name);
+        int GetClientTypeComboBoxIndexById(int id);
     }
 }

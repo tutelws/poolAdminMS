@@ -186,6 +186,7 @@ namespace poolAdminMS.UserControls
         private void UpdateAbonements(int id)
         {
             Client currC = clientManager.GetClientById(id);
+            clientTypeLable.Text = clientManager.GetClientTypeByClient(currC).TypeName;
             fioLable.Text = currC.Surname + " " + currC.Name + " " + currC.Secondname;
             currClientId = currC.Id;
             //abonementsIdComboBox.SelectedIndex = -1;
@@ -281,14 +282,6 @@ namespace poolAdminMS.UserControls
                 return false;
             }
             return true;
-            //else
-            //{
-            //    if (dateEndPicker.Value < DateTime.Today)
-            //    {
-            //        MessageBox.Show("Срок действия абонемента истёк.");
-            //    }
-                    
-            //}
         }
         private void saveAbonementChanges()
         {
@@ -298,8 +291,8 @@ namespace poolAdminMS.UserControls
                 abon.Id = Convert.ToInt32(abonementsIdComboBox.SelectedItem.ToString());
             abon.VisitTypeId = clientManager.GetVisitTypeIdByName(visitTypeСomboBox.SelectedItem.ToString());
             abon.ServiceTypeId = clientManager.GetServiceTypeIdByName(serviceTypeComboBox.SelectedItem.ToString());
-            int tgid = clientManager.GetTrainingGroupIdByName(trainingGroupsComboBox.SelectedItem.ToString());
-            if (tgid != -1)
+            int? tgid = clientManager.GetTrainingGroupIdByName(trainingGroupsComboBox.SelectedItem.ToString());
+            if (tgid != null)
                 abon.TrainingGroupId = tgid;
             DateTime dt = dateEndPicker.Value;
             abon.DateEnd = dt;

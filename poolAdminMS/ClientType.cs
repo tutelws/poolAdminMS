@@ -12,27 +12,18 @@ namespace poolAdminMS
     using System;
     using System.Collections.Generic;
     
-    public partial class Client
+    public partial class ClientType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Client()
+        public ClientType()
         {
-            this.Abonements = new HashSet<Abonement>();
-            this.VisitDates = new HashSet<VisitDate>();
+            this.Clients = new HashSet<Client>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Secondname { get; set; }
-        public string Phone { get; set; }
-        public Nullable<bool> Gender { get; set; }
-        public int TypeId { get; set; }
+        public string TypeName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Abonement> Abonements { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<VisitDate> VisitDates { get; set; }
-        public virtual ClientType ClientType { get; set; }
+        public virtual ICollection<Client> Clients { get; set; }
     }
 }
